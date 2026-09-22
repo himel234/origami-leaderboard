@@ -2,6 +2,7 @@ import threading
 import webbrowser
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
+import os
 import requests
 
 
@@ -24,27 +25,28 @@ DATA_URL = "https://dw3ji7n7thadj.cloudfront.net/aggregator/builders/0x9b451f894
 # ============================================================
 
 USERNAMES = {
-    "0x28d6dda751db999b991ed169bb773e8e855c36c2": "@shamim215",
-    "0x6188c0c04bd502541b77d8cd43667944437b3eda": "@puperet",
+    "0x28d6dda751db999b991ed169bb773e8e855c36c2": "",
+    "0x6188c0c04bd502541b77d8cd43667944437b3eda": "",
     "0x6e5234204cd2015baf121b6934eab4d4f40a07ce": "",
-    "0xfff111cdc96472c137596a91d001fd870557501c": "@BARYSBYEK",
+    "0xfff111cdc96472c137596a91d001fd870557501c": "",
     "0x14280d8e1a1e490a3665563479e581280d32e441": "",
-    "0xfcb4dbcb3dbe57f02f4a5fa603a1da948f549673": "@himel234",
+    "0xfcb4dbcb3dbe57f02f4a5fa603a1da948f549673": "",
     "0xbfbbb7a23d740648547f11797de7c157af81cac8": "",
-    "0xbf787b37c4db340088b154e3c343f4d94508ac8c": "@tomtop",
+    "0xbf787b37c4db340088b154e3c343f4d94508ac8c": "",
     "0x7e2df435ffaa20800713a1f1e770c1b093bacda5": "",
     "0xe254c53e776bb1b434f9d81bc93c246d08069bd6": "",
-    "0x097e0a249c065e279ec08ea021cff3dd11c32d41": "@abshamweb3",
+    "0x097e0a249c065e279ec08ea021cff3dd11c32d41": "",
     "0x8c641e56994b18b18d9bc754655c2892b80b3315": "",
-    "0xb29b8367e3a07928d5aa788bd9137d8c416e65ae": "@madikpeju",
+    "0xb29b8367e3a07928d5aa788bd9137d8c416e65ae": "",
     "0x6f23925a69097b2ac7bf67e24b68cbb6382ca656": "",
-    "0x28a97f53f11becbb1d531ed26a953cba87d115c8": "@Edward6742",
+    "0x28a97f53f11becbb1d531ed26a953cba87d115c8": "",
     "0x03a506eb9548fd844f60e65b35e56e5472f70c00": "",
     "0x4137bff4666989e877ade32e09ba8035cb0b1359": "",
     "0x88a30b45ca1fe48898675c6e4420b0090b0eba5e": "",
     "0x779c0a1345375b21839e4053419d9fdd6a432cce": "",
     "0x94aa8c596c405ac056e5caa2f08870c947a98e2a": "",
 }
+
 
 # ============================================================
 # WALLETS
@@ -415,14 +417,22 @@ class Handler(BaseHTTPRequestHandler):
 # START
 # ============================================================
 
-server = HTTPServer(("127.0.0.1", 8765), Handler)
+# Render requires the public server to bind to 0.0.0.0 and use
+# the PORT environment variable. Locally, the original port 8765
+# is used.
+HOST = "0.0.0.0"
+PORT = int(os.environ.get("PORT", "8765"))
 
-threading.Timer(
-    1,
-    lambda: webbrowser.open("http://127.0.0.1:8765")
-).start()
+server = HTTPServer((HOST, PORT), Handler)
 
-print("Opening http://127.0.0.1:8765")
+# Only open a browser when running on the local computer.
+if "PORT" not in os.environ:
+    threading.Timer(
+        1,
+        lambda: webbrowser.open(f"http://127.0.0.1:{PORT}")
+    ).start()
+
+print(f"Starting Origami leaderboard on {HOST}:{PORT}")
 print("Default view: 30D")
 print("Refreshes every 30 seconds.")
 print("Press Ctrl+C to stop.")
