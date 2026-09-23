@@ -45,8 +45,8 @@ USERNAMES = {
     "0x88a30b45ca1fe48898675c6e4420b0090b0eba5e": "",
     "0x779c0a1345375b21839e4053419d9fdd6a432cce": "",
     "0x94aa8c596c405ac056e5caa2f08870c947a98e2a": "",
-    "0x7f2663fc903d269a9670ce5ad76d92f7a0b70e66": "@Safa1818",
-    "0x8a591916b925c399a4d2791d186dfae5366cc12a": "@Eleonore",
+    "0x7f2663fc903d269a9670ce5ad76d92f7a0b70e66": "@Safal818",
+    "0x8a591916b925c399a4d2791d186dfae5366cc12a": "@Eleonore3663",
 }
 
 
