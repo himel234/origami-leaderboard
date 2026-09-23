@@ -216,7 +216,7 @@ th:nth-child(2),td:nth-child(2),th:nth-child(3),td:nth-child(3){text-align:left}
       <div>
         <div class="kicker">Trading Competition</div>
         <h2>Origami Leaderboard</h2>
-        <p>20 selected wallets · ranked by PnL · powered by HyperTracker data</p>
+        <p>Ranked by PnL data</p>
       </div>
       <div class="stats">
         <div class="stat"><b id="walletCount">20</b><span>Traders</span></div>
