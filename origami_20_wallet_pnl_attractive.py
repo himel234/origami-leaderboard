@@ -219,8 +219,9 @@ th:nth-child(2),td:nth-child(2),th:nth-child(3),td:nth-child(3){text-align:left}
         <p>Ranked by PnL data</p>
       </div>
       <div class="stats">
-        <div class="stat"><b id="walletCount">20</b><span>Traders</span></div>
+        <div class="stat"><b id="walletCount">22</b><span>Traders</span></div>
         <div class="stat"><b id="periodLabel">30D</b><span>Period</span></div>
+        <div class="stat"><b id="totalVolume">$0.00</b><span>Total Volume</span></div>
       </div>
     </div>
   </section>
@@ -327,8 +328,12 @@ function render(){
         volume:u?getNum(u,["volume"]):0
       });
     }
-    rows.sort((a,b)=>b.pnl-a.pnl);
-    renderPodium(rows);
+   rows.sort((a,b)=>b.pnl-a.pnl);
+
+const totalVolume = rows.reduce((sum, row) => sum + row.volume, 0);
+document.getElementById("totalVolume").textContent = "$" + money(totalVolume);
+
+renderPodium(rows);
 
     document.getElementById("out").innerHTML=`<div class="tableWrap"><table>
       <thead><tr><th>Rank</th><th>Trader</th><th>Username</th><th>PnL</th><th>Closed PnL</th><th>Builder Fee</th><th>Volume</th></tr></thead>
